@@ -37,7 +37,7 @@ public interface FileService {
      * @return List of calendar entries
      * @throws DataLoadException If an error occurs while loading data
      */
-    List<Calendar> loadCalendar(String filePath) throws DataLoadException;
+    List<Payment> loadPayments(String filePath) throws DataLoadException;
 
     /**
      * Loads overtime data from a file.

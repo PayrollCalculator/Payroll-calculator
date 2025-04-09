@@ -48,16 +48,16 @@ public class PayrollCalculator {
             // Load data from files
             List<Employee> employees = fileService.loadEmployees(PayrollApplication.MAIN_DATA_PATH);
             Map<String, Rate> rates = fileService.loadRates(PayrollApplication.RATE_DATA_PATH);
-            List<Calendar> calendar = fileService.loadCalendar(PayrollApplication.CALENDAR_DATA_PATH);
+            List<Payment> payments = fileService.loadPayments(PayrollApplication.PAYMENT_DATA_PATH);
             Map<String, Overtime> overtimes = fileService.loadOvertimes(PayrollApplication.OVERTIME_DATA_PATH);
             Map<String, TaxClass> taxClasses = fileService.loadTaxClasses(PayrollApplication.TAX_CLASS_DATA_PATH);
 
             // Validate data
-            validationService.validateData(employees, rates, calendar, overtimes, taxClasses);
+            validationService.validateData(employees, rates, payments, overtimes, taxClasses);
 
             // Calculate payroll
             List<PaymentResult> results = calculationService.calculatePayroll(
-                employees, rates, calendar, overtimes, taxClasses);
+                employees, rates, payments, overtimes, taxClasses);
 
             // Save results
             fileService.saveResults(results, PayrollApplication.OUTPUT_PATH);

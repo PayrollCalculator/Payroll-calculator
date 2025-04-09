@@ -24,7 +24,7 @@ public interface CalculationService {
     List<PaymentResult> calculatePayroll(
         List<Employee> employees,
         Map<String, Rate> rates,
-        List<Calendar> calendar,
+        List<Payment> calendar,
         Map<String, Overtime> overtimes,
         Map<String, TaxClass> taxClasses);
 
@@ -37,7 +37,7 @@ public interface CalculationService {
      * @param taxClass Tax class
      * @return Base pay amount
      */
-    double calculateBasePay(Employee employee, Rate rate, Calendar calendar, TaxClass taxClass);
+    double calculateBasePay(Employee employee, Rate rate, Payment calendar, TaxClass taxClass);
 
     /**
      * Calculates overtime pay.

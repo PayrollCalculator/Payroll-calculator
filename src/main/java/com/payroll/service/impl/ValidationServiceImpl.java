@@ -21,7 +21,7 @@ public class ValidationServiceImpl implements ValidationService {
     public void validateData(
         List<Employee> employees,
         Map<String, Rate> rates,
-        List<Calendar> calendar,
+        List<Payment> calendar,
         Map<String, Overtime> overtimes,
         Map<String, TaxClass> taxClasses) throws ValidationException{
 

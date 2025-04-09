@@ -1,29 +1,23 @@
 package com.payroll.model;
 
-import java.util.List;
-
 /**
  * Calendar model.
  * Contains calendar-related data.
  */
-public class Calendar {
+public class Payment {
     private int month;
     private int year;
-    private int workingDays;
     private String paymentDate;
-    private List<Integer> holidays;
 
     // Constructors, getters, and setters
 
-    public Calendar() {
+    public Payment() {
     }
 
-    public Calendar(int month, int year, int workingDays, String paymentDate, List<Integer> holidays) {
+    public Payment(int month, int year, String paymentDate) {
         this.month = month;
         this.year = year;
-        this.workingDays = workingDays;
         this.paymentDate = paymentDate;
-        this.holidays = holidays;
     }
 
     public int getMonth() {
@@ -42,14 +36,6 @@ public class Calendar {
         this.year = year;
     }
 
-    public int getWorkingDays() {
-        return workingDays;
-    }
-
-    public void setWorkingDays(int workingDays) {
-        this.workingDays = workingDays;
-    }
-
     public String getPaymentDate() {
         return paymentDate;
     }
@@ -58,20 +44,12 @@ public class Calendar {
         this.paymentDate = paymentDate;
     }
 
-    public List<Integer> getHolidays() {
-        return holidays;
-    }
-
-    public void setHolidays(List<Integer> holidays) {
-        this.holidays = holidays;
-    }
 
     @Override
     public String toString() {
         return "Calendar{" +
             "month=" + month +
             ", year=" + year +
-            ", workingDays=" + workingDays +
             ", paymentDate='" + paymentDate + '\'' +
             '}';
     }

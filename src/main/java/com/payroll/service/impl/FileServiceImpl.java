@@ -97,9 +97,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<Calendar> loadCalendar(String filePath) throws DataLoadException {
-        logger.info("Loading calendar data from {}", filePath);
-        List<Calendar> calendarList = new ArrayList<>();
+    public List<Payment> loadPayments(String filePath) throws DataLoadException {
+        logger.info("Loading payment data from {}", filePath);
+        List<Payment> paymentList = new ArrayList<>();
 
         try {
             List<Map<String, String>> records = csvParser.parseWithHeaders(filePath);
@@ -115,26 +115,24 @@ public class FileServiceImpl implements FileService {
                         }
                     }
 
-                    Calendar calendar = new Calendar(
+                    Payment payment = new Payment(
                         Integer.parseInt(record.get("MONTH")),
                         Integer.parseInt(record.get("YEAR")),
-                        Integer.parseInt(record.get("WORKING_DAYS")),
-                        record.get("PAYMENT_DATE"),
-                        holidays
+                        record.get("PAYMENT_DATE")
                     );
 
-                    calendarList.add(calendar);
-                    logger.debug("Loaded calendar entry: {}", calendar);
+                    paymentList.add(payment);
+                    logger.debug("Loaded payment entry: {}", payment);
                 } catch (Exception e) {
-                    logger.warn("Failed to parse calendar data: {}", record, e);
+                    logger.warn("Failed to parse payment data: {}", record, e);
                 }
             }
 
-            logger.info("Loaded {} calendar entries", calendarList.size());
-            return calendarList;
+            logger.info("Loaded {} payment entries", paymentList.size());
+            return paymentList;
         } catch (Exception e) {
-            logger.error("Error loading calendar from {}", filePath, e);
-            throw new DataLoadException("Error loading calendar data: " + e.getMessage(), e);
+            logger.error("Error loading payment from {}", filePath, e);
+            throw new DataLoadException("Error loading payment data: " + e.getMessage(), e);
         }
     }
 

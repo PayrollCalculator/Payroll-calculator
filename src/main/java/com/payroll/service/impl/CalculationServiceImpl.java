@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Implementation of the payroll calculation service.
@@ -23,7 +22,7 @@ public class CalculationServiceImpl implements CalculationService {
     public List<PaymentResult> calculatePayroll(
         List<Employee> employees,
         Map<String, Rate> rates,
-        List<Calendar> calendars,
+        List<Payment> calendars,
         Map<String, Overtime> overtimes,
         Map<String, TaxClass> taxClasses) {
 
@@ -37,7 +36,7 @@ public class CalculationServiceImpl implements CalculationService {
 
         // Use the first calendar entry for now - this could be enhanced to select
         // the appropriate calendar entry based on current date or other criteria
-        Calendar currentCalendar = calendars.get(0);
+        Payment currentCalendar = calendars.get(0);
         logger.info("Using calendar entry: Month {}, Year {}", currentCalendar.getMonth(), currentCalendar.getYear());
 
         for (Employee employee : employees) {
@@ -87,9 +86,9 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     @Override
-    public double calculateBasePay(Employee employee, Rate rate, Calendar calendar, TaxClass taxClass) {
+    public double calculateBasePay(Employee employee, Rate rate, Payment calendar, TaxClass taxClass) {
         // Formula: (Ndays / Ndays in month) * Monthly Rate * TaxClassCoef
-        double daysRatio = (double) employee.getDaysWorked() / calendar.getWorkingDays();
+        double daysRatio = (double) employee.getDaysWorked() / 30;
         double taxFactor = (taxClass != null) ? taxClass.getFactor() : 1.0;
 
         logger.debug("Days ratio for employee {}: {}", employee.getEmployeeId(), daysRatio);

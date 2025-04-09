@@ -1,16 +1,10 @@
 package com.payroll;
 
-import com.payroll.api.CalculationService;
-import com.payroll.api.FileService;
-import com.payroll.api.ValidationService;
 import com.payroll.service.impl.CalculationServiceImpl;
 import com.payroll.service.impl.FileServiceImpl;
 import com.payroll.service.impl.ValidationServiceImpl;
 import com.payroll.util.ApacheCommonsCsvParser;
 import com.payroll.util.DefaultFileReader;
-import com.payroll.util.FileReader;
-import com.payroll.util.SimpleCsvParser;
-import com.payroll.util.CsvParser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +18,7 @@ public class PayrollApplication {
     // File paths constants
     public static final String MAIN_DATA_PATH = "data/main_data.csv";
     public static final String RATE_DATA_PATH = "data/rate.csv";
-    public static final String CALENDAR_DATA_PATH = "data/calendar_data.csv";
+    public static final String PAYMENT_DATA_PATH = "data/payments.csv";
     public static final String OVERTIME_DATA_PATH = "data/overtime_data.csv";
     public static final String TAX_CLASS_DATA_PATH = "data/tax_class_data.csv";
     public static final String OUTPUT_PATH = "data/result/main_data_result.csv";
