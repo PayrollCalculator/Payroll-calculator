@@ -34,10 +34,9 @@ public interface CalculationService {
      * @param employee Employee
      * @param rate Payment rate
      * @param calendar Calendar data
-     * @param taxClass Tax class
      * @return Base pay amount
      */
-    double calculateBasePay(Employee employee, Rate rate, Payment calendar, TaxClass taxClass);
+    double calculateBasePay(Employee employee, Rate rate, Payment calendar);
 
     /**
      * Calculates overtime pay.

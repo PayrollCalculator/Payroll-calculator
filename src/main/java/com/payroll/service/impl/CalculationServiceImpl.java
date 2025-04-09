@@ -40,12 +40,6 @@ public class CalculationServiceImpl implements CalculationService {
         logger.info("Using calendar entry: Month {}, Year {}", currentCalendar.getMonth(), currentCalendar.getYear());
 
         for (Employee employee : employees) {
-            // Basic checks
-            if (employee.getStatus().equalsIgnoreCase("INACTIVE")) {
-                logger.debug("Skipping inactive employee: {}", employee.getEmployeeId());
-                continue; // Skip inactive employees
-            }
-
             String employeeId = employee.getEmployeeId();
             Rate rate = rates.get(employeeId);
             Overtime overtime = overtimes.get(employeeId);
@@ -57,7 +51,7 @@ public class CalculationServiceImpl implements CalculationService {
             }
 
             // Base pay calculation
-            double basePay = calculateBasePay(employee, rate, currentCalendar, taxClass);
+            double basePay = calculateBasePay(employee, rate, currentCalendar);
             logger.debug("Base pay for employee {}: {}", employeeId, basePay);
 
             // Overtime calculation
@@ -86,10 +80,10 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     @Override
-    public double calculateBasePay(Employee employee, Rate rate, Payment calendar, TaxClass taxClass) {
+    public double calculateBasePay(Employee employee, Rate rate, Payment calendar) {
         // Formula: (Ndays / Ndays in month) * Monthly Rate * TaxClassCoef
         double daysRatio = (double) employee.getDaysWorked() / 30;
-        double taxFactor = (taxClass != null) ? taxClass.getFactor() : 1.0;
+        double taxFactor = 1.0; // TODO: Implement tax class coefficient calculation
 
         logger.debug("Days ratio for employee {}: {}", employee.getEmployeeId(), daysRatio);
         logger.debug("Tax factor for employee {}: {}", employee.getEmployeeId(), taxFactor);
