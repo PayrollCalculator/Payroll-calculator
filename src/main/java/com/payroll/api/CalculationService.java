@@ -16,7 +16,7 @@ public interface CalculationService {
      *
      * @param employees List of employees
      * @param rates Payment rates
-     * @param calendar Calendar data
+     * @param payments Payment data
      * @param overtimes Overtime hours
      * @param taxClasses Tax classes
      * @return List of calculation results
@@ -24,7 +24,7 @@ public interface CalculationService {
     List<PaymentResult> calculatePayroll(
         List<Employee> employees,
         Map<String, Rate> rates,
-        List<Payment> calendar,
+        List<Payment> payments,
         Map<String, Overtime> overtimes,
         Map<String, TaxClass> taxClasses);
 

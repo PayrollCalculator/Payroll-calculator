@@ -22,57 +22,57 @@ public class CalculationServiceImpl implements CalculationService {
     public List<PaymentResult> calculatePayroll(
         List<Employee> employees,
         Map<String, Rate> rates,
-        List<Payment> calendars,
+        List<Payment> payments,
         Map<String, Overtime> overtimes,
         Map<String, TaxClass> taxClasses) {
 
         logger.info("Starting payroll calculation for {} employees", employees.size());
         List<PaymentResult> results = new ArrayList<>();
 
-        if (calendars == null || calendars.isEmpty()) {
-            logger.error("No calendar data available for calculations");
+        if (payments == null || payments.isEmpty()) {
+            logger.error("No payment data available for calculations");
             return results;
         }
 
-        // Use the first calendar entry for now - this could be enhanced to select
-        // the appropriate calendar entry based on current date or other criteria
-        Payment currentCalendar = calendars.get(0);
-        logger.info("Using calendar entry: Month {}, Year {}", currentCalendar.getMonth(), currentCalendar.getYear());
+        for (Payment currentPayment : payments) {
+            logger.info("Processing payment: Month {}, Year {}", currentPayment.getMonth(),
+                currentPayment.getYear());
 
-        for (Employee employee : employees) {
-            String employeeId = employee.getEmployeeId();
-            Rate rate = rates.get(employeeId);
-            Overtime overtime = overtimes.get(employeeId);
-            TaxClass taxClass = taxClasses.get(employee.getTaxClass());
+            for (Employee employee : employees) {
+                String employeeId = employee.getEmployeeId();
+                Rate rate = rates.get(employeeId);
+                Overtime overtime = overtimes.get(employeeId);
 
-            if (rate == null) {
-                logger.warn("No rate found for employee: {}", employeeId);
-                continue; // Skip if no rate data is available
+                if (rate == null) {
+                    logger.warn("No rate found for employee: {}", employeeId);
+                    continue; // Skip if no rate data is available
+                }
+
+                // Base pay calculation
+                double basePay = calculateBasePay(employee, rate, currentPayment);
+                logger.debug("Base pay for employee {}: {}", employeeId, basePay);
+
+                // Overtime calculation
+                double overtimePay = calculateOvertimePay(rate, overtime);
+                logger.debug("Overtime pay for employee {}: {}", employeeId, overtimePay);
+
+                // Total pay
+                double totalPay = basePay + overtimePay;
+                logger.debug("Total pay for employee {}: {}", employeeId, totalPay);
+
+                // Create result
+                PaymentResult result = new PaymentResult(
+                    employeeId,
+                    totalPay,
+                    currentPayment.getMonth() + "." + currentPayment.getPaymentDate() + "." +
+                        currentPayment.getYear(),
+                    generateSettlementAccount(employee),
+                    "EUR"
+                );
+
+                results.add(result);
+                logger.info("Calculated payment for employee {}: {}", employeeId, result);
             }
-
-            // Base pay calculation
-            double basePay = calculateBasePay(employee, rate, currentCalendar);
-            logger.debug("Base pay for employee {}: {}", employeeId, basePay);
-
-            // Overtime calculation
-            double overtimePay = calculateOvertimePay(rate, overtime);
-            logger.debug("Overtime pay for employee {}: {}", employeeId, overtimePay);
-
-            // Total pay
-            double totalPay = basePay + overtimePay;
-            logger.debug("Total pay for employee {}: {}", employeeId, totalPay);
-
-            // Create result
-            PaymentResult result = new PaymentResult(
-                employeeId,
-                totalPay,
-                currentCalendar.getMonth() + "." + currentCalendar.getPaymentDate() + "." + currentCalendar.getYear(),
-                generateSettlementAccount(employee),
-                "EUR"
-            );
-
-            results.add(result);
-            logger.info("Calculated payment for employee {}: {}", employeeId, result);
         }
 
         logger.info("Payroll calculation completed for {} employees", results.size());
@@ -80,7 +80,7 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     @Override
-    public double calculateBasePay(Employee employee, Rate rate, Payment calendar) {
+    public double calculateBasePay(Employee employee, Rate rate, Payment payment) {
         // Formula: (Ndays / Ndays in month) * Monthly Rate * TaxClassCoef
         double daysRatio = (double) employee.getDaysWorked() / 30;
         double taxFactor = 1.0; // TODO: Implement tax class coefficient calculation
@@ -114,7 +114,8 @@ public class CalculationServiceImpl implements CalculationService {
         // Example: use first 4 characters of full name
         String fullName = employee.getFullName();
         if (fullName == null || fullName.length() < 4) {
-            logger.warn("Cannot generate settlement account for employee {}: invalid name", employee.getEmployeeId());
+            logger.warn("Cannot generate settlement account for employee {}: invalid name",
+                employee.getEmployeeId());
             return "DEFAULT";
         }
         return fullName.substring(0, 4).toUpperCase();
