@@ -14,36 +14,23 @@ public interface CalculationService {
     /**
      * Calculates payroll for a list of employees.
      *
-     * @param employees List of employees
-     * @param rates Payment rates
-     * @param payments Payment data
-     * @param overtimes Overtime hours
+     * @param employees  List of employees
+     * @param rates      Payment rates
+     * @param payments   Payment data
+     * @param overtimes  Overtime hours
      * @param taxClasses Tax classes
      * @return List of calculation results
      */
     List<PaymentResult> calculatePayroll(
         List<Employee> employees,
-        Map<String, Rate> rates,
+        List<Rate> rates,
         List<Payment> payments,
-        Map<String, Overtime> overtimes,
-        Map<String, TaxClass> taxClasses);
+        List<Overtime> overtimes,
+        List<TaxClass> taxClasses,
+        List<Calendar> calendar
 
-    /**
-     * Calculates base pay for an employee.
-     *
-     * @param employee Employee
-     * @param rate Payment rate
-     * @param calendar Calendar data
-     * @return Base pay amount
-     */
-    double calculateBasePay(Employee employee, Rate rate, Payment calendar);
-
-    /**
-     * Calculates overtime pay.
-     *
-     * @param rate Payment rate
-     * @param overtime Overtime hours
-     * @return Overtime pay amount
-     */
-    double calculateOvertimePay(Rate rate, Overtime overtime);
+    );
 }
+
+
+

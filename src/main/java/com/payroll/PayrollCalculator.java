@@ -5,13 +5,16 @@ import com.payroll.api.FileService;
 import com.payroll.api.ValidationService;
 import com.payroll.exception.DataLoadException;
 import com.payroll.exception.ValidationException;
-import com.payroll.model.*;
-
+import com.payroll.model.Calendar;
+import com.payroll.model.Employee;
+import com.payroll.model.Overtime;
+import com.payroll.model.Payment;
+import com.payroll.model.PaymentResult;
+import com.payroll.model.Rate;
+import com.payroll.model.TaxClass;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Core calculator class that handles the payroll calculation workflow.
@@ -26,13 +29,14 @@ public class PayrollCalculator {
     /**
      * Constructs a PayrollCalculator with the required services.
      *
-     * @param fileService File access service
-     * @param validationService Data validation service
+     * @param fileService        File access service
+     * @param validationService  Data validation service
      * @param calculationService Calculation service
      */
-    public PayrollCalculator(FileService fileService,
-                             ValidationService validationService,
-                             CalculationService calculationService) {
+    public PayrollCalculator(
+        FileService fileService,
+        ValidationService validationService,
+        CalculationService calculationService) {
         this.fileService = fileService;
         this.validationService = validationService;
         this.calculationService = calculationService;
@@ -46,21 +50,22 @@ public class PayrollCalculator {
 
         try {
             // Load data from files
-            List<Employee> employees = fileService.loadEmployees(PayrollApplication.MAIN_DATA_PATH);
-            Map<String, Rate> rates = fileService.loadRates(PayrollApplication.RATE_DATA_PATH);
-            List<Payment> payments = fileService.loadPayments(PayrollApplication.PAYMENT_DATA_PATH);
-            Map<String, Overtime> overtimes = fileService.loadOvertimes(PayrollApplication.OVERTIME_DATA_PATH);
-            Map<String, TaxClass> taxClasses = fileService.loadTaxClasses(PayrollApplication.TAX_CLASS_DATA_PATH);
+            List<Employee> employees = fileService.loadEmployees();
+            List<Rate> rates = fileService.loadRates();
+            List<Payment> payments = fileService.loadPayments();
+            List<Overtime> overtimes = fileService.loadOvertimes();
+            List<TaxClass> taxClasses = fileService.loadTaxClasses();
+            List<Calendar> calendar = fileService.loadCalendar();
 
             // Validate data
-            validationService.validateData(employees, rates, payments, overtimes, taxClasses);
+            validationService.validateData(employees, rates, payments, overtimes, taxClasses, calendar);
 
             // Calculate payroll
             List<PaymentResult> results = calculationService.calculatePayroll(
-                employees, rates, payments, overtimes, taxClasses);
+                employees, rates, payments, overtimes, taxClasses, calendar);
 
             // Save results
-            fileService.saveResults(results, PayrollApplication.OUTPUT_PATH);
+            fileService.saveResults(results);
 
             logger.info("Payroll calculation completed successfully!");
             System.out.println("Payroll calculation completed successfully!");

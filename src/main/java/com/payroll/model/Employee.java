@@ -4,7 +4,7 @@ package com.payroll.model;
  * Employee model.
  * Contains employee data.
  */
-public class Employee {
+public class    Employee {
     private String fullName;
     private String location;
     private String employeeId;

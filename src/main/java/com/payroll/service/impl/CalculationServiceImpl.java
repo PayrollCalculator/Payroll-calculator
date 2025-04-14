@@ -6,7 +6,9 @@ import com.payroll.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +23,11 @@ public class CalculationServiceImpl implements CalculationService {
     @Override
     public List<PaymentResult> calculatePayroll(
         List<Employee> employees,
-        Map<String, Rate> rates,
+        List<Rate> rates,
         List<Payment> payments,
-        Map<String, Overtime> overtimes,
-        Map<String, TaxClass> taxClasses) {
+        List<Overtime> overtimes,
+        List<TaxClass> taxClasses,
+        List<Calendar> calendar) {
 
         logger.info("Starting payroll calculation for {} employees", employees.size());
         List<PaymentResult> results = new ArrayList<>();
@@ -34,39 +37,59 @@ public class CalculationServiceImpl implements CalculationService {
             return results;
         }
 
-        for (Payment currentPayment : payments) {
-            logger.info("Processing payment: Month {}, Year {}", currentPayment.getMonth(),
-                currentPayment.getYear());
+        // Create maps for faster lookups
+        Map<String, Rate> rateMap = convertRatesToMap(rates);
+        Map<String, TaxClass> taxClassMap = convertTaxClassesToMap(taxClasses);
+
+        // Group overtimes by employee ID and month
+        Map<String, Map<String, Integer>> overtimesByEmployeeAndMonth =
+            aggregateOvertimesByMonth(overtimes);
+
+        for (Payment payment : payments) {
+            int paymentMonth = payment.month();
+            int paymentYear = payment.year();
+            String paymentPeriodKey = paymentYear + "-" + paymentMonth;
+
+            logger.info("Processing payment for period: {}", paymentPeriodKey);
 
             for (Employee employee : employees) {
+                // Skip inactive employees
+                if (employee.getStatus().equalsIgnoreCase("INACTIVE")) {
+                    logger.debug("Skipping inactive employee: {}", employee.getEmployeeId());
+                }
+
                 String employeeId = employee.getEmployeeId();
-                Rate rate = rates.get(employeeId);
-                Overtime overtime = overtimes.get(employeeId);
+                Rate rate = rateMap.get(employeeId);
+                TaxClass taxClass = taxClassMap.get(employee.getTaxClass());
 
                 if (rate == null) {
-                    logger.warn("No rate found for employee: {}", employeeId);
                     continue; // Skip if no rate data is available
                 }
 
+                // Get overtime hours for this employee and month
+                int overtimeHours =
+                    getOvertimeHours(overtimesByEmployeeAndMonth, employeeId, paymentPeriodKey);
+
                 // Base pay calculation
-                double basePay = calculateBasePay(employee, rate, currentPayment);
+                double basePay = calculateBasePay(employee, rate, payment, taxClass,calendar);
                 logger.debug("Base pay for employee {}: {}", employeeId, basePay);
 
                 // Overtime calculation
-                double overtimePay = calculateOvertimePay(rate, overtime);
-                logger.debug("Overtime pay for employee {}: {}", employeeId, overtimePay);
+                double overtimePay = calculateOvertimePay(rate, overtimeHours);
+                logger.debug("Overtime pay for employee {}: {} (from {} hours)",
+                    employeeId, overtimePay, overtimeHours);
 
                 // Total pay
                 double totalPay = basePay + overtimePay;
                 logger.debug("Total pay for employee {}: {}", employeeId, totalPay);
 
                 // Create result
+                String settlementAccount = generateSettlementAccount(employee);
                 PaymentResult result = new PaymentResult(
                     employeeId,
-                    totalPay,
-                    currentPayment.getMonth() + "." + currentPayment.getPaymentDate() + "." +
-                        currentPayment.getYear(),
-                    generateSettlementAccount(employee),
+                    settlementAccount.equals("INVALID_ACCOUNT") ? 0 : totalPay,
+                    payment.month() + "." + payment.paymentDate() + "." + payment.year(),
+                    settlementAccount,
                     "EUR"
                 );
 
@@ -75,49 +98,104 @@ public class CalculationServiceImpl implements CalculationService {
             }
         }
 
-        logger.info("Payroll calculation completed for {} employees", results.size());
+        logger.info("Payroll calculation completed with {} payment results", results.size());
         return results;
     }
 
-    @Override
-    public double calculateBasePay(Employee employee, Rate rate, Payment payment) {
-        // Formula: (Ndays / Ndays in month) * Monthly Rate * TaxClassCoef
-        double daysRatio = (double) employee.getDaysWorked() / 30;
-        double taxFactor = 1.0; // TODO: Implement tax class coefficient calculation
+    private Map<String, Rate> convertRatesToMap(List<Rate> rates) {
+        Map<String, Rate> rateMap = new HashMap<>();
+        for (Rate rate : rates) {
+            rateMap.put(rate.employeeId(), rate);
+        }
+        return rateMap;
+    }
+
+    private Map<String, TaxClass> convertTaxClassesToMap(List<TaxClass> taxClasses) {
+        Map<String, TaxClass> taxClassMap = new HashMap<>();
+        for (TaxClass taxClass : taxClasses) {
+            taxClassMap.put(taxClass.taxClass(), taxClass);
+        }
+        return taxClassMap;
+    }
+
+    private Map<String, Map<String, Integer>> aggregateOvertimesByMonth(List<Overtime> overtimes) {
+        Map<String, Map<String, Integer>> result = new HashMap<>();
+
+        for (Overtime overtime : overtimes) {
+            String employeeId = overtime.employeeId();
+            LocalDate date = overtime.date();
+            int hours = overtime.overtimeHours();
+
+            if (employeeId == null || date == null) {
+                continue;
+            }
+
+            String periodKey = date.getYear() + "-" + date.getMonthValue();
+            Map<String, Integer> employeeOvertimes =
+                result.computeIfAbsent(employeeId, k -> new HashMap<>());
+            employeeOvertimes.put(periodKey, employeeOvertimes.getOrDefault(periodKey, 0) + hours);
+        }
+
+        return result;
+    }
+
+    private int getOvertimeHours(
+        Map<String, Map<String, Integer>> overtimeMap,
+        String employeeId,
+        String periodKey) {
+
+        Map<String, Integer> employeeOvertimes = overtimeMap.get(employeeId);
+        if (employeeOvertimes == null) {
+            return 0;
+        }
+
+        return employeeOvertimes.getOrDefault(periodKey, 0);
+    }
+
+    public double calculateBasePay(Employee employee, Rate rate, Payment payment,
+                                   TaxClass taxClass, List<Calendar> calendar) {
+        double daysRatio = getDaysRatio(calendar,payment);
+        double taxFactor = getTaxFactor(taxClass);
 
         logger.debug("Days ratio for employee {}: {}", employee.getEmployeeId(), daysRatio);
         logger.debug("Tax factor for employee {}: {}", employee.getEmployeeId(), taxFactor);
 
-        return daysRatio * rate.getRate() * taxFactor;
+        return daysRatio * rate.rate() * taxFactor;
     }
 
-    @Override
-    public double calculateOvertimePay(Rate rate, Overtime overtime) {
-        if (overtime == null) {
-            logger.debug("No overtime data for employee {}", rate.getEmployeeId());
+    private static double getTaxFactor(TaxClass taxClass) {
+        return 1.0;// TODO: Implement tax factor calculation
+    }
+
+
+    public double calculateOvertimePay(Rate rate, int overtimeHours) {
+        if (overtimeHours <= 0) {
             return 0;
         }
 
-        // Enforce maximum overtime hours
-        int overtimeHours = Math.min(overtime.getOvertimeHours(), MAX_OVERTIME_HOURS);
-        if (overtimeHours != overtime.getOvertimeHours()) {
+        int cappedHours = Math.min(overtimeHours, MAX_OVERTIME_HOURS);
+        if (cappedHours != overtimeHours) {
             logger.warn("Overtime hours for employee {} limited from {} to {}",
-                rate.getEmployeeId(), overtime.getOvertimeHours(), overtimeHours);
+                rate.employeeId(), overtimeHours, cappedHours);
         }
 
-        // Formula: Overtime H * Overtime Rate * coefficient 1.5
-        return overtimeHours * rate.getOvertimeRate() * OVERTIME_COEFFICIENT;
+        return cappedHours * rate.overtimeRate() * OVERTIME_COEFFICIENT;
     }
 
     private String generateSettlementAccount(Employee employee) {
-        // Generate settlement account based on employee name
-        // Example: use first 4 characters of full name
         String fullName = employee.getFullName();
         if (fullName == null || fullName.length() < 4) {
             logger.warn("Cannot generate settlement account for employee {}: invalid name",
                 employee.getEmployeeId());
-            return "DEFAULT";
+            return "INVALID_ACCOUNT";
         }
         return fullName.substring(0, 4).toUpperCase();
+    }
+
+    private static double getDaysRatio(List<Calendar> calendar, Payment payment) {
+        int workingDays = 20;
+        int daysInMonth = 30;
+        // TODO: Use calendar data
+        return (double) workingDays / daysInMonth;
     }
 }
