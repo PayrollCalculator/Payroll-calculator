@@ -83,13 +83,19 @@ public class CalculationServiceImpl implements CalculationService {
                 double totalPay = basePay + overtimePay;
                 logger.debug("Total pay for employee {}: {}", employeeId, totalPay);
 
+
+                // Validate employee name
+                if(!employee.getFullName().matches("[\\p{L} /-]+")) {
+                    logger.info("Employee {} has an invalid name: {}", employeeId, employee.getFullName());
+                    continue;
+                }
+
                 // Create result
-                String settlementAccount = generateSettlementAccount(employee);
                 PaymentResult result = new PaymentResult(
                     employeeId,
-                    settlementAccount.equals("INVALID_ACCOUNT") ? 0 : totalPay,
+                    totalPay,
                     payment.month() + "." + payment.paymentDate() + "." + payment.year(),
-                    settlementAccount,
+                    generateSettlementAccount(employee),
                     "EUR"
                 );
 
