@@ -1,1 +1,14 @@
 
+PRCALC-17359 (Task 4)
+
+Ignoring of tax class - Kirill to write text
+
+
+
+
+
+PRCALC-27919 (Task 5)
+
+Ignoring number of working days in formula - Alexey to write text
+
+
