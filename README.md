@@ -15,18 +15,21 @@ Payroll Calculator processes employee data, rates, calendar information, overtim
 
 ```
 PayrollCalculator/
-├── src/              # Source code
-├── data/             # Input CSV files
-│   ├── main_data.csv
-│   ├── rate.csv
-│   ├── calendar_data.csv
-│   ├── overtime_data.csv
-│   └── tax_class_data.csv
-├── data/result/      # Output directory
-├── target/           # Compiled files (created during build)
-├── logs/             # Execution logs
-├── pom.xml           # Maven configuration
-└── README.md         # This file
+├── src/                           # Source code
+├── data/                          # Input data and CSV files
+│   ├── calendar_data.csv          # Calendar input for working days
+│   ├── main_data.csv              # Main employee data
+│   ├── overtime_data.csv          # Overtime records
+│   ├── payments.csv               # Payment info
+│   ├── rate.csv                   # Hourly or salary rates
+│   ├── tax_class_data.csv         # Tax classification details
+│   └── result/
+│       └── main_data_result.csv   # Final calculation output
+├── logs/
+│   └── payroll-calculator.log     # Application execution logs
+├── README.md                      # Project overview and usage instructions
+├── REQUIREMENTS.md                # Prerequisites and setup instructions
+└── pom.xml                        # Maven project configuration
 ```
 
 ## Building and Running the Application
@@ -96,7 +99,7 @@ If you encounter issues:
    ```
    java -version
    ```
-5. Confirm Maven is installed correctly:
+5. Make sure Maven is installed on your system or that you're using the built-in Maven in IntelliJ IDEA:
    ```
    mvn -version
    ```
