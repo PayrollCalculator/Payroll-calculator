@@ -14,107 +14,108 @@ The application requires the following input files in the `data/` directory:
 
 Contains basic information about employees.
 
-**Format:**
-```
-FULL_NAME;LOCATION;EMPLOYEE_ID;TAX_CLASS;AT_LEVEL;STATUS;DAYS_WORKED;PHONE;BIRTHDAY_DATE;PASSWORDS
-```
+**Format:**  
+Name;Location;Employee ID;Tax Class;AT Level;Status;Days Worked;Phone Number;Birthday;Password
 
-**Example:**
-```
-SMITH JOHN;BERLIN;123;4;AT1;ACTIVE;28;015222466666;01.01.1990;qwerty12345
-BROWN ROBERT;MUNICH;124;3;AT2;ACTIVE;20;015222477777;02.02.1991;qwerty54321
-```
+**Example:**  
+Henner Römer;Leipzig;69819545;4;AT2;ACTIVE;19;0173965019;1978-08-07;JXXN3qnZgg  
+Svenja Geisler;Berlin;45151585;1;AT2;ACTIVE;19;0155565119;1973-09-06;16lhR5Qt8M
 
 **Fields:**
-- FULL_NAME: Employee's full name
-- LOCATION: Employee's location
-- EMPLOYEE_ID: Unique employee identifier
-- TAX_CLASS: Tax class identifier
-- AT_LEVEL: Employee level
-- STATUS: Employment status (ACTIVE/INACTIVE)
-- DAYS_WORKED: Number of days worked in the period
-- PHONE: Phone number (not used in calculations)
-- BIRTHDAY_DATE: Date of birth (not used in calculations)
-- PASSWORDS: Password (not used in calculations)
+- **Name**: Employee's full name
+- **Location**: City or region where the employee is based
+- **Employee ID**: Unique identifier for the employee
+- **Tax Class**: Tax class category
+- **AT Level**: Salary level/classification
+- **Status**: Employment status (`ACTIVE`, `INACTIVE`)
+- **Days Worked**: Number of days the employee worked in the period
+- **Phone Number**: Contact number
+- **Birthday**: Date of birth in format `YYYY-MM-DD`
+- **Password**: Password string
 
 ### 2. rate.csv
 
 Contains information about employee rates.
 
-**Format:**
-```
+**Format:**  
 EMPLOYEE_ID;RATE;OVERTIME_RATE
-```
 
-**Example:**
-```
-123;100;10
-124;150;15
-```
+**Example:**  
+69819545;540;44  
+45151585;183;34
 
 **Fields:**
-- EMPLOYEE_ID: Unique employee identifier
-- RATE: Monthly rate
-- OVERTIME_RATE: Hourly rate for overtime
+- **EMPLOYEE_ID**: Unique employee identifier  
+- **RATE**: Monthly rate  
+- **OVERTIME_RATE**: Hourly rate for overtime
 
 ### 3. calendar_data.csv
 
-Contains calendar information for the pay period.
+Contains detailed calendar data for each day in the pay period.
 
-**Format:**
-```
-MONTH;YEAR;WORKING_DAYS;PAYMENT_DATE;HOLIDAYS
-```
+**Format:**  
+YEAR;MONTH;DAY;DAY_OF_WEEK;HOLIDAY
 
-**Example:**
-```
-1;2025;20;15;2,3
-```
+**Example:**  
+2025;12;31;WED;N  
+2025;12;30;TUE;N  
+2025;12;29;MON;N
 
 **Fields:**
-- MONTH: Month number
-- YEAR: Year
-- WORKING_DAYS: Number of working days in the month
-- PAYMENT_DATE: Day of payment
-- HOLIDAYS: List of holiday days in the month (comma-separated)
+- **YEAR**: Year
+- **MONTH**: Month number
+- **DAY**: Day of the month
+- **DAY_OF_WEEK**: Day of the week (e.g., MON, TUE)
+- **HOLIDAY**: Indicates whether the day is a holiday (`Y` or `N`)
+
 
 ### 4. overtime_data.csv
 
-Contains information about overtime hours.
+Contains information about employee overtime hours on specific dates.
 
-**Format:**
-```
-EMPLOYEE_ID;OVERTIME_DATA
-```
+**Format:**  
+EMPLOYEE_ID;OVERTIME_DATA;DATE
 
-**Example:**
-```
-123;8
-124;12
-```
+**Example:**  
+46771500;10;2025-05-20  
+71123410;10;2025-05-09
 
 **Fields:**
-- EMPLOYEE_ID: Unique employee identifier
-- OVERTIME_DATA: Number of overtime hours
+- **EMPLOYEE_ID**: Unique employee identifier
+- **OVERTIME_DATA**: Number of overtime hours
+- **DATE**: Date when the overtime occurred (`YYYY-MM-DD`)
 
 ### 5. tax_class_data.csv
 
 Contains information about tax classes and their coefficients.
 
-**Format:**
-```
+**Format:**  
 TAX_CLASS;FACTOR
-```
 
-**Example:**
-```
-4;0.42
-3;0.35
-```
+**Example:**  
+4;0.42  
+3;0.35  
+2;0.25  
+1;0.15
 
 **Fields:**
-- TAX_CLASS: Tax class identifier
-- FACTOR: Tax coefficient
+- **TAX_CLASS**: Tax class identifier
+- **FACTOR**: Tax coefficient (used for tax calculation)
+
+### 6. payments.csv
+
+Specifies the official payment date for a given month and year.
+
+**Format:**  
+MONTH;YEAR;PAYMENT_DATE
+
+**Example:**  
+1;2025;15
+
+**Fields:**
+- **MONTH**: Month number
+- **YEAR**: Year
+- **PAYMENT_DATE**: Day of the month when payment is made
 
 ## Output File
 
