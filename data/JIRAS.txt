@@ -9,6 +9,18 @@ Action Required: Please investigate and rectify this issue as a matter of priori
 
 
 
+
+PRCALC-18556 (Task 2) - Herr Römer received his salary twice.
+ 
+Herr Römer received his salary twice for the one month. 
+Please urgently check why it happened and fix an issue.
+
+Our operation team has fix it and duplicated transaction was cancelled, 
+but we don't want to get this again.
+
+
+
+
 PRCALC-17359 (Task 4) - Add Support for Tax Class Handling in Payroll Calculations
 
 As part of enhancing the Payroll Calculator, we need to introduce support for handling employee tax classes. The tax class should influence the calculation of payroll deductions and net salary. This change ensures better accuracy and compliance with German payroll requirements.
@@ -39,6 +51,19 @@ These discrepancies frequently result in complaints from employees, which have t
 Addressing this issue will ensure that the calculator determines the correct number of working days in each month (excluding weekends and public holidays where applicable) and uses this to prorate salary and deductions accurately.
 
 Fixing this would reduce the number of manual corrections required, saving approximately 15 minutes per case. With an estimated 30–40 such cases per payroll cycle, this change could save up to 10 hours per month for the payroll team. More importantly, it would also save employees time and frustration, helping maintain trust and morale by ensuring their compensation is calculated fairly the first time.
+
+
+
+
+
+PRCALC-11663 (Task 6) - Persons who already are not working with us got salary
+
+The salary calculator prepared the salary transaction for individuals who are not working with us anymore.
+Please, check and fix an issue.
+Example : Henryk Jüttner
+
+
+
 
 (Task 10)
 _Support Engineer Notes:_
