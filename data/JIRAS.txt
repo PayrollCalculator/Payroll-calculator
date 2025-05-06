@@ -1,4 +1,4 @@
-(Task 1) Arrives as 
+(Task 1) Arrives as email
 Subject: Urgent Payroll Issue for User ID 24778715
 
 Description: We are writing to formally raise a complaint regarding a critical payroll issue identified in the reconciliation report for the DB payroll department. It has come to our attention that there is no payroll record generated for the user with ID 24778715. This discrepancy, if not addressed immediately, will result in the user not receiving their due payment.
