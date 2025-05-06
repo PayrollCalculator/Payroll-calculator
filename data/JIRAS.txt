@@ -12,7 +12,7 @@ Action Required: Please investigate and rectify this issue as a matter of priori
 
 PRCALC-18556 (Task 2) - Herr Römer received his salary twice.
  
-Herr Römer received his salary twice for the one month. 
+Herr Schröder received his salary twice for the one month. 
 Please urgently check why it happened and fix an issue.
 
 Our operation team has fix it and duplicated transaction was cancelled, 
