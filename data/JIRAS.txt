@@ -40,4 +40,15 @@ Addressing this issue will ensure that the calculator determines the correct num
 
 Fixing this would reduce the number of manual corrections required, saving approximately 15 minutes per case. With an estimated 30–40 such cases per payroll cycle, this change could save up to 10 hours per month for the payroll team. More importantly, it would also save employees time and frustration, helping maintain trust and morale by ensuring their compensation is calculated fairly the first time.
 
+(Task 10)
+_Support Engineer Notes:_
+
+Employee Name: Joseph Stahr
+Department: Legal and Compliance
+Issue: Missing salary in account
+
+I am extremely upset and disappointed to find that my salary is missing from my account this month. This situation has caused me significant harm and stress. I depend on my salary to cover essential expenses, and this oversight has left me in a precarious financial position. I have bills to pay, and this delay has already resulted in late fees and penalties. The anxiety and frustration this has caused me are overwhelming, and I need this issue resolved immediately.
+
+The harm caused by this negligence is both financial and emotional. As a dedicated employee, I expect my salary to be deposited on time. The lack of communication and urgency in addressing this issue is unacceptable. I demand that my salary be deposited into my account without any further delay, and I expect a formal apology for the distress and inconvenience caused. If this issue is not resolved promptly, I will be forced to take further action.
+
 
