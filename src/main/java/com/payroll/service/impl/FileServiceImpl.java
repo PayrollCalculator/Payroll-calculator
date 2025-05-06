@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
                     record.get("Password")
                 );
             } catch (Exception e) {
-                logger.warn("Failed to create Employee: {}", e.getMessage());
+                logger.warn("Failed to create Employee from the record: {}",record);
                 return null;
             }
         });
