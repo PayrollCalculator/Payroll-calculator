@@ -100,7 +100,7 @@ public class ValidationServiceImpl implements ValidationService {
 
             // Required employee fields check
             if (employee.getFullName() == null || employee.getFullName().isEmpty()) {
-                logger.warn("Employee {} has no name", employeeId);
+                logger.error("Employee {} has no name", employeeId);
             }
 
             if (employee.getTaxClass() == null || employee.getTaxClass().isEmpty()) {
