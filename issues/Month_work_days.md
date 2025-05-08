@@ -1,0 +1,10 @@
+PRCALC-27919 (Task 5) - Fix Payroll Calculation to Accurately Prorate Based on Days Worked per Month
+
+The current implementation of the Payroll Calculator does not properly account for the number of days worked in relation to the total number of working days in a given month. This leads to incorrect salary proration, especially in cases where employees join, leave, or take unpaid leave during the month.
+
+These discrepancies frequently result in complaints from employees, which have to be manually investigated and corrected by payroll staff. This not only consumes significant administrative time but also negatively impacts employee trust and satisfaction with the payroll process.
+
+Addressing this issue will ensure that the calculator determines the correct number of working days in each month (excluding weekends and public holidays where applicable) and uses this to prorate salary and deductions accurately.
+
+Fixing this would reduce the number of manual corrections required, saving approximately 15 minutes per case. With an estimated 30–40 such cases per payroll cycle, this change could save up to 10 hours per month for the payroll team. More importantly, it would also save employees time and frustration, helping maintain trust and morale by ensuring their compensation is calculated fairly the first time.
+

@@ -166,7 +166,7 @@ public class CalculationServiceImpl implements CalculationService {
         logger.debug("Days ratio for employee {}: {}", employee.getEmployeeId(), daysRatio);
         logger.debug("Tax factor for employee {}: {}", employee.getEmployeeId(), taxFactor);
 
-        return daysRatio * rate.rate() * taxFactor;
+        return employee.getDaysWorked() * daysRatio * rate.rate() * taxFactor;
     }
 
     private static double getTaxFactor(TaxClass taxClass) {
