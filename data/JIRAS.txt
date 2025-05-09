@@ -100,6 +100,22 @@ Thanks,
 Mr. Graf
 
 
+(Task 08)
+Dear Payroll Calculator Support team,
+
+I hope this message finds you well. My name is Juergen Trub, and I am writing to bring to your attention a discrepancy in my recent billing statement regarding overtime payments.
+
+On May 5th, I worked an additional 12 hours due to an incident in production. However, upon reviewing my current billing statement, I noticed that the overtime payments are less than expected. This discrepancy is causing me significant concern and frustration.
+
+I kindly request that you recalculate my payment for the overtime hours worked and rectify this issue as soon as possible. Please provide me with an updated statement reflecting the correct amount.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Juergen Trub
+
+
 (Task 10)
 _Support Engineer Notes:_
 
