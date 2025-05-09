@@ -62,6 +62,24 @@ The salary calculator prepared the salary transaction for individuals who are no
 Please, check and fix an issue.
 Example : Henryk Jüttner
 
+
+(Task 7) - angry person with 12 hours overtime didn't get what expected
+
+Dear Payroll Calculator Support team,
+
+I hope this message finds you well. My name is Juergen Trub, and I am writing to bring to your attention a discrepancy in my recent billing statement regarding overtime payments.
+
+On May 5th, I worked an additional 12 hours due to an incident in production. However, upon reviewing my current billing statement, I noticed that the overtime payments are less than expected. This discrepancy is causing me significant concern and frustration.
+
+I kindly request that you recalculate my payment for the overtime hours worked and rectify this issue as soon as possible. Please provide me with an updated statement reflecting the correct amount.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Juergen Trub
+
+
 (Task 9) PRCALC-12334 - Missing Overtime Payment
  
 Email 1
@@ -100,22 +118,6 @@ Thanks,
 Mr. Graf
 
 
-(Task 08)
-Dear Payroll Calculator Support team,
-
-I hope this message finds you well. My name is Juergen Trub, and I am writing to bring to your attention a discrepancy in my recent billing statement regarding overtime payments.
-
-On May 5th, I worked an additional 12 hours due to an incident in production. However, upon reviewing my current billing statement, I noticed that the overtime payments are less than expected. This discrepancy is causing me significant concern and frustration.
-
-I kindly request that you recalculate my payment for the overtime hours worked and rectify this issue as soon as possible. Please provide me with an updated statement reflecting the correct amount.
-
-Thank you for your prompt attention to this matter.
-
-Best regards,
-
-Juergen Trub
-
-
 (Task 10)
 _Support Engineer Notes:_
 
@@ -127,7 +129,7 @@ I am extremely upset and disappointed to find that my salary is missing from my 
 
 The harm caused by this negligence is both financial and emotional. As a dedicated employee, I expect my salary to be deposited on time. The lack of communication and urgency in addressing this issue is unacceptable. I demand that my salary be deposited into my account without any further delay, and I expect a formal apology for the distress and inconvenience caused. If this issue is not resolved promptly, I will be forced to take further action.
 
-(Task 7)
+(Task 7???)
 The current situation with the payroll calculator is quite challenging. The payroll vendor responsible for managing and maintaining the payroll system has unexpectedly gone out of business, leaving their team unavailable for any support or assistance. This sudden disruption has caused significant issues, as the payroll was pre-generated and distributed into checks by various departments. Unfortunately, these departments have started flagging numerous issues with the payroll calculations, indicating potential errors that need immediate attention.
 
 In response to this crisis, you have been provided with the source code of the payroll calculator. Your primary task is to compile and run the code using the input data files that have been given to you. This initial step is crucial to understanding the current state of the payroll system and identifying the root causes of the flagged issues. By successfully compiling and running the code, you will be able to analyze the payroll calculations and work towards resolving the discrepancies reported by the departments.
