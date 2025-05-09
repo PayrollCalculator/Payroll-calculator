@@ -1,3 +1,8 @@
+Task 0
+The current situation with the payroll calculator is quite challenging. The payroll vendor responsible for managing and maintaining the payroll system has unexpectedly gone out of business, leaving their team unavailable for any support or assistance. This sudden disruption has caused significant issues, as the payroll was pre-generated and distributed into checks by various departments. Unfortunately, these departments have started flagging numerous issues with the payroll calculations, indicating potential errors that need immediate attention.
+
+In response to this crisis, you have been provided with the source code of the payroll calculator. Your primary task is to compile and run the code using the input data files that have been given to you. This initial step is crucial to understanding the current state of the payroll system and identifying the root causes of the flagged issues. By successfully compiling and running the code, you will be able to analyze the payroll calculations and work towards resolving the discrepancies reported by the departments.
+
 (Task 1) Arrives as email
 Subject: Urgent Payroll Issue for User ID 24778715
 
@@ -11,11 +16,11 @@ Action Required: Please investigate and rectify this issue as a matter of priori
 
 
 PRCALC-18556 (Task 2) - Herr Römer received his salary twice.
- 
-Herr Schröder received his salary twice for the one month. 
+
+Herr Schröder received his salary twice for the one month.
 Please urgently check why it happened and fix an issue.
 
-Our operation team has fix it and duplicated transaction was cancelled, 
+Our operation team has fix it and duplicated transaction was cancelled,
 but we don't want to get this again.
 
 
@@ -95,45 +100,45 @@ Best regards,
 Juergen Trub
 
 
-(Task 9) PRCALC-12334 - Missing Overtime Payment
- 
+(Task 8) PRCALC-12334 - Missing Overtime Payment
+
 Email 1
- 
+
 Summary: Assistance Required with Overtime Payment for Last Month
- 
-Description:  
- 
+
+Description:
+
 Dear Tech Support Team,
- 
+
 I hope this message finds you well.
- 
+
 I am writing to seek your assistance regarding an issue with my salary payment for last month. Upon reviewing the amount credited to my account, I noticed that it only reflects my base salary and does not include the overtime payment I am entitled to.
- 
+
 Could you please look into this matter and help ensure that the overtime payment is processed correctly? Your  attention to this issue would be greatly appreciated.
- 
+
 Thank you for your support.
- 
+
 Best regards,
 Miss Schenk
- 
- 
+
+
 Email 2
- 
+
 Summary : Immediate Action Required: Missing Overtime Payment
- 
+
 Description:
- 
+
 Hi Tech Support Team,
- 
+
 I'm really frustrated right now. My salary for last month only includes my base pay and is missing the overtime I worked hard for. This is unacceptable, especially since I have a mortgage payment due in a few days.
- 
+
 I need this fixed immediately. Please process my overtime payment ASAP. This is urgent and can't wait.
- 
+
 Thanks,
 Mr. Graf
 
 
-(Task 10)
+(Task 9)
 _Support Engineer Notes:_
 
 Employee Name: Joseph Stahr
@@ -144,7 +149,4 @@ I am extremely upset and disappointed to find that my salary is missing from my 
 
 The harm caused by this negligence is both financial and emotional. As a dedicated employee, I expect my salary to be deposited on time. The lack of communication and urgency in addressing this issue is unacceptable. I demand that my salary be deposited into my account without any further delay, and I expect a formal apology for the distress and inconvenience caused. If this issue is not resolved promptly, I will be forced to take further action.
 
-(Task 7???)
-The current situation with the payroll calculator is quite challenging. The payroll vendor responsible for managing and maintaining the payroll system has unexpectedly gone out of business, leaving their team unavailable for any support or assistance. This sudden disruption has caused significant issues, as the payroll was pre-generated and distributed into checks by various departments. Unfortunately, these departments have started flagging numerous issues with the payroll calculations, indicating potential errors that need immediate attention.
 
-In response to this crisis, you have been provided with the source code of the payroll calculator. Your primary task is to compile and run the code using the input data files that have been given to you. This initial step is crucial to understanding the current state of the payroll system and identifying the root causes of the flagged issues. By successfully compiling and running the code, you will be able to analyze the payroll calculations and work towards resolving the discrepancies reported by the departments.
