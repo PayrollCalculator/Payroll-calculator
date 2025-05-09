@@ -19,6 +19,21 @@ Our operation team has fix it and duplicated transaction was cancelled,
 but we don't want to get this again.
 
 
+(Task 3) - overtime for previous month
+
+Dear Payroll Calculator Support Team,
+
+I hope this message finds you well.
+
+I am writing to bring to your attention an issue regarding my overtime payment for the month of April. Despite having logged the overtime hours as required, I have not received the corresponding payment.
+
+Could you please investigate this matter and ensure that the payment is processed at the earliest convenience? I have attached the relevant timesheets for your reference.
+
+Thank you for your prompt attention to this matter. I look forward to your swift resolution.
+
+Best regards,
+
+Franz Josef Hartmann
 
 
 PRCALC-17359 (Task 4) - Add Support for Tax Class Handling in Payroll Calculations
