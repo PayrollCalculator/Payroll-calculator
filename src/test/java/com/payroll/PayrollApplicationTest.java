@@ -59,8 +59,11 @@ class PayrollApplicationTest {
     @Test
     @DisplayName("8. Susann Schenk")
     void case_8() {
-        PaymentResult employer = existOne("21233182");
-        assertTrue(List.of(4174, 4518, 5155, 5585).contains((int) round(employer.pay())));
+        PaymentResult msShenk = existOne("21233182");
+        assertTrue(List.of(4174, 4518, 5155, 5585).contains((int) round(msShenk.pay())));
+        PaymentResult rmGraf = existOne("20937689");
+        assertTrue(List.of(4740, 4367, 3730, 4047).contains((int) round(rmGraf.pay())));
+
     }
 
     @Test
