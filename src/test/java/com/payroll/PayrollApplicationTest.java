@@ -37,12 +37,6 @@ class PayrollApplicationTest {
     }
 
     @Test
-    @DisplayName("3. ")
-    void case_3() {
-        fail();
-    }
-
-    @Test
     @DisplayName("4. Henner Römer | tax class")
     void case_4() {
         PaymentResult employer = existOne("69819545");
