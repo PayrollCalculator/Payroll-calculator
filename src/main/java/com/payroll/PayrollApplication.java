@@ -5,6 +5,7 @@ import com.payroll.service.impl.FileServiceImpl;
 import com.payroll.service.impl.ValidationServiceImpl;
 import com.payroll.util.DefaultFileReader;
 import com.payroll.util.SimpleCsvParser;
+import java.util.Locale;
 
 /**
  * Main application class that initializes and starts the payroll calculator.
@@ -15,6 +16,7 @@ public class PayrollApplication {
     // File paths constants
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         String dataRoute = args.length > 0 ? args[0] : DEFAULT_DATA_ROUTE;
         // check if dataRoute is a valid path
         if (dataRoute == null || dataRoute.isEmpty()) {
